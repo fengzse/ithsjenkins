@@ -69,7 +69,7 @@ I click Book button to book Volvo S90 with 5 passengers
     Press Keys              //*[@id="carSelect1"]           RETURN      # Click Button does't work, Press Keys works
 I can see the page to confirm my booking and I fill in the forms
     [Arguments]                 ${CARD_NUM}     ${CARD_HOLDER}       ${CVC}
-    Page Should Contain                     Confirm booking of Volvo S90
+    Page Should Contain                     A Volvo S90 is now ready for pickup
     Wait Until Page Contains Element        //*[@id="confirmSelection"]
     Page Should Contain Element             //*[@id="cardNum"]
     Input Text                              //input[@id="cardNum"]              ${CARD_NUM}
