@@ -11,40 +11,7 @@ pipeline{
                 sh "mvn compile"  // "bat" for Windows, "sh" for MacOs and Linux
             }
         }
-        stage('newman') {
-            steps {
-            sh 'newman run RestfulBooker_Feng/Restful_Booker_Feng_LabPostman.postman_collection.json --environment RestfulBooker_Feng/Restful_Booker_Feng.postman_environment.json --reporters junit'
-            }
-            post {
-                always {
-                        junit '**/*xml'
-                }
-            }
-        }
-        stage('Robot Framework System tests with Selenium') {
-                    steps {
-                        sh 'robot --variable BROWSER:headlesschrome -d Results  Tests'
-                    }
-                    post {
-                        always {
-                            script {
-                                  step(
-                                        [
-                                          $class              : 'RobotPublisher',
-                                          outputPath          : 'results',
-                                          outputFileName      : '**/output.xml',
-                                          reportFileName      : '**/report.html',
-                                          logFileName         : '**/log.html',
-                                          disableArchiveOutput: false,
-                                          passThreshold       : 50,
-                                          unstableThreshold   : 40,
-                                          otherFiles          : "**/*.png,**/*.jpg",
-                                        ]
-                                  )
-                            }
-                        }
-                    }
-                }
+
         stage('Test'){
             steps{
                 sh "mvn test"
@@ -58,5 +25,39 @@ pipeline{
                 }
             }
         }
+        stage('newman') {
+            steps {
+                sh 'newman run RestfulBooker_Feng/Restful_Booker_Feng_LabPostman.postman_collection.json --environment RestfulBooker_Feng/Restful_Booker_Feng.postman_environment.json --reporters junit'
+                }
+            post {
+                always {
+                        junit '**/*xml'
+                }
+            }
+        }
+         stage('Robot Framework System tests with Selenium') {
+            steps {
+                 sh 'robot --variable BROWSER:headlesschrome -d Results  Tests'
+                 }
+            post {
+                  always {
+                        script {
+                               step(
+                                    [
+                                     $class              : 'RobotPublisher',
+                                      outputPath          : 'results',
+                                      outputFileName      : '**/output.xml',
+                                      reportFileName      : '**/report.html',
+                                      logFileName         : '**/log.html',
+                                      disableArchiveOutput: false,
+                                      passThreshold       : 50,
+                                      unstableThreshold   : 40,
+                                      otherFiles          : "**/*.png,**/*.jpg",
+                                      ]
+                               )
+                        }
+                  }
+            }
+         }
     }
 }
