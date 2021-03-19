@@ -18,7 +18,7 @@ Scenario:User book a car online
     Given I open the browser go to the web
     When I click the login button
     And I can login
-    And I select the date to continue       03/30/2021      03/30/2021
+    And I select the date to continue       04/19/2021      04/19/2021
     And I click continue-button to continue
     And I open the page with list of cars          Make        Passengers
     And I select the car-brand and size
@@ -69,6 +69,7 @@ I click Book button to book Volvo S90 with 5 passengers
     Press Keys              //*[@id="carSelect1"]           RETURN      # Click Button does't work, Press Keys works
 I can see the page to confirm my booking and I fill in the forms
     [Arguments]                 ${CARD_NUM}     ${CARD_HOLDER}       ${CVC}
+	Page Should Contain						Confirm booking of Volvo S90
     Wait Until Page Contains Element        //*[@id="confirmSelection"]
     Page Should Contain Element             //*[@id="cardNum"]
     Input Text                              //input[@id="cardNum"]              ${CARD_NUM}
