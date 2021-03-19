@@ -60,10 +60,10 @@ pipeline{
             }
          }
          stage ('Build'){
-             	steps("SeleniumTest") {
+             	dir("src/test/java/com/seleniumTest") {
          	        sh "mvn clean install"
                 }
-                dir("comtest/target") {
+                dir("src/test/java/com/seleniumTest/target") {
          	        sh "java -jar com.test-1.0-SNAPSHOT.jar"
                 }
          }
