@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Test Infortiv Car Rental web,
 ...                 for the G part we test functionalities of "About"-button ,"Create user"-button and Login-function
-Resource            ../TestLabAuto/Resource/keywords.robot
+Resource            ../Resource/keywords.robot
 Library             SeleniumLibrary
 Test Setup          Generate Tests
 Test Teardown       End the test        # click reset and close broswer
