@@ -10,6 +10,7 @@ pipeline{
             steps{
                 sh "mvn compile"  // "bat" for Windows, "sh" for MacOs and Linux
             }
+        }
         stage('newman') {
             steps {
             sh 'newman run Restful_Booker_Feng_LabPostman.postman_collection.json --environment Restful_Booker_Feng.postman_environment.json --reporters junit'
@@ -20,6 +21,7 @@ pipeline{
                     }
                 }
             }
+        }
         stage('Test'){
             steps{
                 sh "mvn test"
