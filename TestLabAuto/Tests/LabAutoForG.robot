@@ -7,7 +7,7 @@ Test Setup          Generate Tests
 Test Teardown       End the test        # click reset and close broswer
 
 *** Variables ***
-${BROWSER} = chrome
+${BROWSER}			chrome
 ${URL}              http://www.rental8.infotiv.net/
 
 
