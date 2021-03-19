@@ -59,5 +59,13 @@ pipeline{
                   }
             }
          }
+         stage ('Build'){
+             	steps("SeleniumTest") {
+         	        sh "mvn clean install"
+                }
+                dir("comtest/target") {
+         	        sh "java -jar com.test-1.0-SNAPSHOT.jar"
+                }
+         }
     }
 }
