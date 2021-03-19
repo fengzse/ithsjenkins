@@ -59,13 +59,5 @@ pipeline{
                   }
             }
          }
-         stage ('Build'){
-             	dir("src/test/java/com/seleniumTest") {
-         	        sh "mvn clean install"
-                }
-                dir("src/test/java/com/seleniumTest/target") {
-         	        sh "java -jar com.test-1.0-SNAPSHOT.jar"
-                }
-         }
     }
 }
