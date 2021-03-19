@@ -18,7 +18,7 @@ Scenario:User book a car online
     Given I open the browser go to the web
     When I click the login button
     And I can login
-    And I select the date to continue       04/19/2021      04/19/2021
+    And I select the date to continue       03/30/2021      04/19/2021
     And I click continue-button to continue
     And I open the page with list of cars          Make        Passengers
     And I select the car-brand and size
