@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('Checkout'){
             steps{
-                git 'https://github.com/fengzse/Postman.git'
+                git 'https://github.com/fengzse/ithsjenkins.git'
             }
         }
         stage('Build'){
