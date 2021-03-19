@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Test Infortiv Car Rental web,
 ...                 for the VG part I test by using Gherkin syntax
-Resource            ../TestLabAuto/Resource/keywords.robot
+Resource            ../Resource/keywords.robot
 Library             SeleniumLibrary
 Test Setup          Generate Tests
 Test Teardown       End the test
