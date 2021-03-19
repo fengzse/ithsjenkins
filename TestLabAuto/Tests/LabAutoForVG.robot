@@ -18,7 +18,7 @@ Scenario:User book a car online
     Given I open the browser go to the web
     When I click the login button
     And I can login
-    And I select the date to continue       03/30/2021      04/19/2021
+    And I select the date to continue       3/30        4/25
     And I click continue-button to continue
     And I open the page with list of cars          Make        Passengers
     And I select the car-brand and size
@@ -53,14 +53,14 @@ I open the page with list of cars
     Should Be Equal         "${FILTER_PASSENGERS}"        "${PASSENGERS}"
 I select the car-brand and size
     Click Button               //*[@id="ms-list-1"]/button
-    Select Checkbox             //*[@id="ms-opt-3"]
+    Select Checkbox             //*[@id="ms-opt-4"]
 
     # the checkbox //*[@id="ms-opt-7"] is sometimes seleted together with other checkboxes automatically
     # E.g. I selected //*[@id="ms-opt-6"] and //*[@id="ms-opt-5"] single or both,  the //*[@id="ms-opt-7"] is seleted
     # unexpectedly and automatically. I think it is bug, because I just run the exactly same code but sometimes got
     # failure
     Click Button               //*[@id="ms-list-2"]/button
-    Select Checkbox             //*[@id="ms-opt-5"]
+    Select Checkbox             //*[@id="ms-opt-6"]
 I can see cars-selected in the list
     Page Should Contain Element         //*[@id="carSelection"]
     Click Element                       //*[@id="carSelection"]
