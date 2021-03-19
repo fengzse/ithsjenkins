@@ -1,0 +1,355 @@
+{
+	"id": "cc207522-417c-44ed-9a3a-f6f06567b1af",
+	"name": "Restful Booker_Feng_LabPostman",
+	"timestamp": "2021-03-18T10:58:26.699Z",
+	"collection_id": "2e6416b9-9763-491b-a9e1-0995f6c2df8c",
+	"folder_id": 0,
+	"environment_id": "f0e54560-e76e-45de-883d-0b79eb507de1",
+	"totalPass": 27,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "7908e09d-167b-4ae9-9715-ae447e8bd4cc",
+			"name": "Get Auth Token",
+			"url": "https://restful-booker.herokuapp.com/auth",
+			"time": 130,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200, get token successfully": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200, get token successfully": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				130
+			],
+			"allTests": [
+				{
+					"Status code is 200, get token successfully": true
+				}
+			]
+		},
+		{
+			"id": "34618541-02c6-477f-acdf-6115598ef141",
+			"name": "Get Bookings",
+			"url": "https://restful-booker.herokuapp.com/booking",
+			"time": 135,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Booking is not null": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Booking is not null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				135
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Booking is not null": true
+				}
+			]
+		},
+		{
+			"id": "da3d76d0-9890-47a8-b519-585aaa16fc65",
+			"name": "Create new Booking",
+			"url": "https://restful-booker.herokuapp.com/booking",
+			"time": 165,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST status: 200": true,
+				"Check firstname of new Booking is Sally": true,
+				"Check lastname of new Booking is Brown": true,
+				"Check the total price for booking is 111": true,
+				"Check deposite has been paid (true is expected)": true,
+				"Check additional need is Breakfast": true,
+				"Check-in date is 2020-03-06": true,
+				"Check-out date is 2020-03-09": true,
+				"Response should be OK": true,
+				"Successful GET statusCode: 200": true,
+				"New BookingID has been created": true,
+				"The booking should contain information of customer": true
+			},
+			"testPassFailCounts": {
+				"Successful POST status: 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check firstname of new Booking is Sally": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check lastname of new Booking is Brown": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check the total price for booking is 111": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check deposite has been paid (true is expected)": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check additional need is Breakfast": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check-in date is 2020-03-06": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check-out date is 2020-03-09": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should be OK": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Successful GET statusCode: 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"New BookingID has been created": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The booking should contain information of customer": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				165
+			],
+			"allTests": [
+				{
+					"Successful POST status: 200": true,
+					"Check firstname of new Booking is Sally": true,
+					"Check lastname of new Booking is Brown": true,
+					"Check the total price for booking is 111": true,
+					"Check deposite has been paid (true is expected)": true,
+					"Check additional need is Breakfast": true,
+					"Check-in date is 2020-03-06": true,
+					"Check-out date is 2020-03-09": true,
+					"Response should be OK": true,
+					"Successful GET statusCode: 200": true,
+					"New BookingID has been created": true,
+					"The booking should contain information of customer": true
+				}
+			]
+		},
+		{
+			"id": "c71f0dec-d101-4f31-ab80-1d5433900495",
+			"name": "Get Booking by ID",
+			"url": "https://restful-booker.herokuapp.com/booking/20",
+			"time": 156,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"The specific booking searched by bookingID is not null": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The specific booking searched by bookingID is not null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				156
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"The specific booking searched by bookingID is not null": true
+				}
+			]
+		},
+		{
+			"id": "be8f8c85-90fe-4e9c-9c2f-5e396370d7ee",
+			"name": "Update Booking",
+			"url": "https://restful-booker.herokuapp.com/booking/20",
+			"time": 135,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST status: 200": true,
+				"The firstname has been changed to James": true,
+				"The check-in date has been changed to 2020-03-07": true
+			},
+			"testPassFailCounts": {
+				"Successful POST status: 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The firstname has been changed to James": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The check-in date has been changed to 2020-03-07": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				135
+			],
+			"allTests": [
+				{
+					"Successful POST status: 200": true,
+					"The firstname has been changed to James": true,
+					"The check-in date has been changed to 2020-03-07": true
+				}
+			]
+		},
+		{
+			"id": "f0be36ae-9b64-42e4-ac78-677d72696fd3",
+			"name": "Update Booking (partial)",
+			"url": "https://restful-booker.herokuapp.com/booking/20",
+			"time": 139,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST status: 200": true,
+				"Booking is updated, the firstname is Jim now": true,
+				"Booking is updated, the lastname is Brown now": true,
+				"Additional need is Breakfast and dinner now": true
+			},
+			"testPassFailCounts": {
+				"Successful POST status: 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Booking is updated, the firstname is Jim now": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Booking is updated, the lastname is Brown now": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Additional need is Breakfast and dinner now": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				139
+			],
+			"allTests": [
+				{
+					"Successful POST status: 200": true,
+					"Booking is updated, the firstname is Jim now": true,
+					"Booking is updated, the lastname is Brown now": true,
+					"Additional need is Breakfast and dinner now": true
+				}
+			]
+		},
+		{
+			"id": "dc8ee148-823c-4250-b812-97d2599daf37",
+			"name": "Delete Booking",
+			"url": "https://restful-booker.herokuapp.com/booking/20?=",
+			"time": 134,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response should be Not Found": true,
+				"Response code 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should be Not Found": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response code 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				134
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response should be Not Found": true,
+					"Response code 404": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 994,
+	"collection": {
+		"requests": [
+			{
+				"id": "7908e09d-167b-4ae9-9715-ae447e8bd4cc",
+				"method": "POST"
+			},
+			{
+				"id": "34618541-02c6-477f-acdf-6115598ef141",
+				"method": "GET"
+			},
+			{
+				"id": "da3d76d0-9890-47a8-b519-585aaa16fc65",
+				"method": "POST"
+			},
+			{
+				"id": "c71f0dec-d101-4f31-ab80-1d5433900495",
+				"method": "GET"
+			},
+			{
+				"id": "be8f8c85-90fe-4e9c-9c2f-5e396370d7ee",
+				"method": "PUT"
+			},
+			{
+				"id": "f0be36ae-9b64-42e4-ac78-677d72696fd3",
+				"method": "PATCH"
+			},
+			{
+				"id": "dc8ee148-823c-4250-b812-97d2599daf37",
+				"method": "DELETE"
+			}
+		]
+	}
+}

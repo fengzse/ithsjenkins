@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "2e6416b9-9763-491b-a9e1-0995f6c2df8c",
+		"name": "Restful Booker_Feng_LabPostman",
+		"description": "## Overview\nThe Restful Booker API is a sample API based on hotel bookings. The API contains endpoints to demonstrate CRUD operations. The source code can be obtained from https://github.com/mwinteringham/restful-booker\n\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.globals.set(\"my_booker_token\", pm.response.json().token);",
+									"",
+									"pm.environment.set(\"statusCode\",200)",
+									"pm.test(\"Status code is 200, get token successfully\",function(){",
+									"    pm.response.to.have.status(Number(pm.environment.get(\"statusCode\")))",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth"
+							]
+						},
+						"description": "Get auth token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Get Bookings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables",
+									"pm.environment.set(\"statusCode\",200)",
+									"pm.test(\"Status code is \" + pm.environment.get(\"statusCode\"), function () {",
+									"    pm.response.to.have.status(Number(pm.environment.get(\"statusCode\")));",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"bookingID\",jsonData[0].bookingid)",
+									"pm.test(\"Booking is not null\", function(){",
+									"    pm.expect(pm.environment.get(\"bookingID\")).to.not.equal(null);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/booking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking"
+							]
+						},
+						"description": "Get a list of all bookings"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables",
+									"var jsonData = pm.response.json();",
+									"",
+									"var statusCode = pm.response.code;",
+									"pm.environment.set(\"statusCode\", statusCode)",
+									"pm.test(\"Successful POST status: \" + pm.environment.get(\"statusCode\"), function () {",
+									"    pm.expect(200).to.eql(Number(pm.environment.get(\"statusCode\")));",
+									"});",
+									"",
+									"// initialize several vars into environment, these vars can be used/changed values in other tests",
+									"pm.environment.set(\"bookingID\", pm.response.json().bookingid);",
+									"pm.environment.set(\"firstname\", \"Sally\")",
+									"pm.environment.set(\"lastname\", \"Brown\")",
+									"pm.environment.set(\"totalprice\", 111)",
+									"pm.environment.set(\"paidOrNot\",true)",
+									"pm.environment.set(\"additionNeed\",\"Breakfast\")",
+									"pm.environment.set(\"checkin\",\"2020-03-06\")",
+									"pm.environment.set(\"checkout\",\"2020-03-09\")",
+									"",
+									"pm.test(\"Check firstname of new Booking is Sally\", function () {",
+									"    pm.expect(jsonData.booking.firstname).to.eql(pm.environment.get(\"firstname\"));",
+									"});",
+									"",
+									"pm.test(\"Check lastname of new Booking is Brown\", () =>",
+									"    pm.expect(jsonData.booking.lastname).to.eql(pm.environment.get(\"lastname\"))",
+									")",
+									"",
+									"pm.test(\"Check the total price for booking is 111\", function () {",
+									"    pm.expect(jsonData.booking.totalprice).to.eql(Number(pm.environment.get(\"totalprice\")));",
+									"})",
+									"",
+									"pm.test(\"Check deposite has been paid (true is expected)\", function () {",
+									"    pm.expect(jsonData.booking.depositpaid).to.eql(Boolean(pm.environment.get(\"paidOrNot\")));",
+									"})",
+									"",
+									"pm.test(\"Check additional need is Breakfast\", function () {",
+									"    pm.expect(jsonData.booking.additionalneeds).to.eql(pm.environment.get(\"additionNeed\"))",
+									"})",
+									"",
+									"pm.test(\"Check-in date is 2020-03-06\", function () {",
+									"    pm.expect(jsonData.booking.bookingdates.checkin).to.eql(pm.environment.get(\"checkin\"))",
+									"})",
+									"",
+									"pm.test(\"Check-out date is 2020-03-09\", function () {",
+									"    pm.expect(jsonData.booking.bookingdates.checkout).to.eql(pm.environment.get(\"checkout\")",
+									"    )",
+									"})",
+									"",
+									"// for VG, to add a get-request to check data has been insert into database",
+									"var url= pm.environment.get(\"url\")+\"/booking/\"+pm.environment.get(\"bookingID\");",
+									"const getRequest={",
+									"    url:url,",
+									"    method:'GET'",
+									"}; ",
+									"",
+									"pm.sendRequest(getRequest,function(err,res){",
+									"    if(err){",
+									"        console.log(err);",
+									"    }",
+									"    console.log(res);",
+									"    ",
+									"    pm.environment.set(\"ResponseStatus\", \"OK\");",
+									"    pm.test(\"Response should be OK\",function(){",
+									"        pm.expect(res.status).to.eql(pm.environment.get(\"ResponseStatus\"))",
+									"    });",
+									"",
+									"    pm.environment.set(\"statusCode\", 200)",
+									"    pm.test(\"Successful GET statusCode: \" + pm.environment.get(\"statusCode\"), ",
+									"        function (){pm.expect(res.code).to.eql(Number(pm.environment.get(\"statusCode\")));",
+									"    });",
+									"",
+									"    pm.test(\"New BookingID has been created\", function(){",
+									"        pm.expect(res.json().bookingid).to.not.eql(null);",
+									"    });",
+									"    pm.test(\"The booking should contain information of customer\", function(){",
+									"        // variables were set by POST request, verify GET request by some of these variables' values",
+									"        pm.expect(res.text()).to.include(pm.environment.get(\"firstname\"))",
+									"        pm.expect(res.text()).to.include(pm.environment.get(\"checkout\"))",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstname\" : \"Sally\",\r\n  \"lastname\" : \"Brown\",\r\n  \"totalprice\" : 111,\r\n  \"depositpaid\" : true,\r\n  \"additionalneeds\" : \"Breakfast\",\r\n  \"bookingdates\" : {\r\n    \"checkin\" : \"2020-03-06\",\r\n    \"checkout\" : \"2020-03-09\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/booking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"statusCode\",pm.response.code)\r",
+									"pm.environment.set(\"firstname\",jsonData.firstname)\r",
+									"\r",
+									"pm.test(\"Status code is \" + pm.environment.get(\"statusCode\"), function () {\r",
+									"    pm.expect(Number(pm.environment.get(\"statusCode\"))).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"// test the firstname included in the booking, specified by bookingID is not null to verify booking is not null\r",
+									"pm.test(\"The specific booking searched by bookingID is not null\", function(){\r",
+									"    pm.expect(null).to.not.eql(pm.environment.get(\"firstname\"))\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/booking/{{bookingID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables\r",
+									"var statusCode = pm.response.code;\r",
+									"pm.environment.set(\"statusCode\", statusCode)\r",
+									"pm.test(\"Successful POST status: \" + pm.environment.get(\"statusCode\"), function () {\r",
+									"    pm.expect(200).to.eql(Number(pm.environment.get(\"statusCode\")));\r",
+									"});\r",
+									"\r",
+									"// current values are changed, but init values remains\r",
+									"pm.environment.set(\"firstname\",\"James\")\r",
+									"pm.environment.set(\"checkin\",\"2020-03-07\")\r",
+									"\r",
+									"pm.test(\"The firstname has been changed to James\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"firstname\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The check-in date has been changed to 2020-03-07\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"checkin\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "token={{my_booker_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"James\",\r\n    \"lastname\" : \"Brown\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2020-03-07\",\r\n        \"checkout\" : \"2020-03-09\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{url}}/booking/{{bookingID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking (partial)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables",
+									"var jsonData = pm.response.text();",
+									"var statusCode = pm.response.code;",
+									"pm.environment.set(\"statusCode\", statusCode)",
+									"pm.test(\"Successful POST status: \" + pm.environment.get(\"statusCode\"), function () {",
+									"    pm.expect(200).to.eql(Number(pm.environment.get(\"statusCode\")));",
+									"});",
+									"",
+									"pm.environment.set(\"firstname\",\"Jim\")",
+									"pm.environment.set(\"lastname\",\"Brown\")",
+									"pm.environment.set(\"additionNeed\",\"Breakfast and dinner\")",
+									"",
+									"pm.test(\"Booking is updated, the firstname is Jim now\", function () {",
+									"    pm.expect(jsonData).to.include(pm.environment.get(\"firstname\"));",
+									"});",
+									"",
+									"pm.test(\"Booking is updated, the lastname is Brown now\", function () {",
+									"    pm.expect(jsonData).to.include(pm.environment.get(\"lastname\"));",
+									"});",
+									"",
+									"pm.test(\"Additional need is Breakfast and dinner now\", function () {",
+									"    pm.expect(jsonData).to.include(pm.environment.get(\"additionNeed\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"type": "text",
+								"value": "token={{my_booker_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"Jim\",\r\n    \"lastname\" : \"Brown\",\r\n    \"additionalneeds\" : \"Breakfast and dinner\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/booking/{{bookingID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Refactor by using environmental variables",
+									"var url = pm.environment.get(\"url\") + \"/booking/\" + pm.environment.get(\"bookingID\");",
+									"",
+									"const getRequest = {",
+									"        url: url,",
+									"        method: 'GET'",
+									"};",
+									"",
+									"pm.sendRequest(getRequest, function (err, res) {",
+									"    if (err) { ",
+									"        console.log(err);",
+									"    }",
+									"    ",
+									"    console.log(res);",
+									"    pm.environment.set(\"NotFound\",\"Not Found\")",
+									"    pm.test('Response should be Not Found', function () {",
+									"        pm.expect(res.status).to.include(pm.environment.get(\"NotFound\"));",
+									"    });",
+									"    pm.environment.set(\"statusCode\",404)",
+									"    pm.test(\"Response code 404\", function() {",
+									"        pm.expect(res.code).to.equal(Number(pm.environment.get(\"statusCode\")));",
+									"    })",
+									"});",
+									"",
+									"pm.environment.set(\"statusCode\",201)",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(Number(pm.environment.get(\"statusCode\")));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{my_booker_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{my_booker_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/booking/{{bookingID}}?=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingID}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All bookings requests "
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
