@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation       Test Infortiv Car Rental web,
 ...                 for the VG part I test by using Gherkin syntax
-Resource            ../Resource/keywords.robot
+Resource            ../TestLabAuto/Resource/keywords.robot
 Library             SeleniumLibrary
 Test Setup          Generate Tests
 Test Teardown       End the test
 
 *** Variables ***
-${BROWSER}			chrome
+${BROWSER}          chrome
 ${URL}              http://www.rental8.infotiv.net/
 
 *** Test Cases ***
@@ -18,7 +18,7 @@ Scenario:User book a car online
     Given I open the browser go to the web
     When I click the login button
     And I can login
-    And I select the date to continue       3/30        4/25
+    And I select the date to continue               3/30        4/25
     And I click continue-button to continue
     And I open the page with list of cars          Make        Passengers
     And I select the car-brand and size
@@ -36,7 +36,7 @@ I click the login button
 I can login
     Verify Login
 I select the date to continue
-    [Arguments]             ${START_DAY}        ${END_DAY}
+    [Arguments]                ${START_DAY}         ${END_DAY}
     Input Text              //input[@id="start"]            ${START_DAY}
     Input Text              //input[@id="end"]              ${END_DAY}
 I click continue-button to continue
@@ -69,7 +69,7 @@ I click Book button to book Volvo S90 with 5 passengers
     Press Keys              //*[@id="carSelect1"]           RETURN      # Click Button does't work, Press Keys works
 I can see the page to confirm my booking and I fill in the forms
     [Arguments]                 ${CARD_NUM}     ${CARD_HOLDER}       ${CVC}
-	Page Should Contain						Confirm booking of Volvo S90
+    Page Should Contain                     Confirm booking of Volvo S90
     Wait Until Page Contains Element        //*[@id="confirmSelection"]
     Page Should Contain Element             //*[@id="cardNum"]
     Input Text                              //input[@id="cardNum"]              ${CARD_NUM}
