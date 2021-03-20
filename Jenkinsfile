@@ -13,8 +13,11 @@ pipeline{
         }
 
         stage('Test Selenium Run With Java'){
+            environment{
+            PROJECT_DIR="C:\Users\HC\IdeaProjects\ithsjenkins"
+            }
             steps{
-                sh "mvn test"
+                sh "mvn test -f %PROJECT_DIR_1%\\pom.xml clean install"
             }
             post{
                 always{

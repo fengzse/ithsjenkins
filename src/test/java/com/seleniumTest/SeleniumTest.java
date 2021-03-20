@@ -16,7 +16,7 @@ public class SeleniumTest {
 
     @BeforeEach
     public void setUp(){
-        dr=new FirefoxDriver();
+        dr=new ChromeDriver();
         swj=new seleniumWithJava(dr);
     }
 
