@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class SeleniumTest {
@@ -15,7 +16,7 @@ public class SeleniumTest {
 
     @BeforeEach
     public void setUp(){
-        dr=new ChromeDriver();
+        dr=new FirefoxDriver();
         swj=new seleniumWithJava(dr);
     }
 
