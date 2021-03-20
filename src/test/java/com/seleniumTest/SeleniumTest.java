@@ -10,25 +10,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class SeleniumTest {
-    WebDriver driver;
+    WebDriver dr;
+    seleniumWithJava swj;
 
     @BeforeEach
     public void setUp(){
-        driver=new ChromeDriver();
-        String url="http://www.amazon.com";
-        driver.get(url);
+        dr=new ChromeDriver();
+        swj=new seleniumWithJava(dr);
     }
 
     @Test
     public void SeleniumRun(){
-        String expectedTitle="Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more";
-        String actualTitle=driver.getTitle();
+        String url="http://www.amazon.com";
+        String expectedTitle="Java: The Complete Reference, Eleventh "+
+                "Edition: Schildt, Herbert: 9781260440232: Amazon.com: Books";
+        String actualTitle;
+        actualTitle=swj.seleniumRun(url,"java","The Complete Reference");
         assertEquals(expectedTitle,actualTitle);
     }
 
     @AfterEach
     public void tearDown(){
-        driver.close();
+        swj.tearDown();
     }
-
 }
