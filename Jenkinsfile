@@ -6,7 +6,7 @@ pipeline{
                 git 'https://github.com/fengzse/ithsjenkins.git'
             }
         }
-        stage('Build Selenium Run by Java'){
+        stage('Build Selenium Run with Java'){
             steps{
                 sh "mvn compile"  // "bat" for Windows, "sh" for MacOs and Linux
             }
